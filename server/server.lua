@@ -31,7 +31,7 @@ ESX.RegisterServerCallback("mn-cardealer:hasEnoughMoney", function(source, callb
             callback(false)
         end
     else
-        --DropPlayer(src, "mn-cardealer AntiCheat")
+        DropPlayer(src, "mn-cardealer AntiCheat")
     end
 end)
 
