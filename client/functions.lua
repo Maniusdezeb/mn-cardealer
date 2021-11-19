@@ -263,6 +263,7 @@ self.functions.spawnVehicle = function(x,index)
     local x,y,z,h = table.unpack(MN.Cardealers[x].vehshowcase)
     ESX.Game.SpawnLocalVehicle(self.vehicles[current_cat].vehicles[index].model, vector3(x,y,z), h , function(veh)
         currentveh = veh
+        currentheading = h
         TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
         FreezeEntityPosition(veh, true)
         SetVehicleRadioEnabled(veh, false)
