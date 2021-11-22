@@ -66,6 +66,7 @@ end)
 
 
 AddEventHandler('onResourceStart', function(resourceName)
+    if GetCurrentResourceName() ~= resourceName then return end
     local xPlayers=  ESX.GetPlayers()
     PlayerSecurity = {}
     for i=1, #xPlayers, 1 do
