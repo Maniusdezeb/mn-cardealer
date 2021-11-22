@@ -31,7 +31,7 @@ ESX.RegisterServerCallback("mn-cardealer:hasEnoughMoney", function(source, callb
             callback(false)
         end
     else
-        DropPlayer(src, "mn-cardealer AntiCheat")
+        --DropPlayer(src, "mn-cardealer AntiCheat")
     end
 end)
 
@@ -71,12 +71,19 @@ AddEventHandler('onResourceStart', function(resourceName)
     for i=1, #xPlayers, 1 do
         PlayerSecurity[xPlayers[i]] = {} 
         PlayerSecurity[xPlayers[i]].Recievedkey = false
+        print("[id: " .. xPlayers[i] .. "] Player Loaded Succesfully into mn-cardealer AntiCheat")
     end
 end)
 
-AddEventHandler("playerConnecting", function(source, name)
+
+RegisterServerEvent("mn-cardealer:playerLoaded")
+AddEventHandler("mn-cardealer:playerLoaded", function()
+    if PlayerSecurity[source] ~= nil then  self.functions.SendToDiscord(source)  DropPlayer(source, "mn-cardealer AntiCheat") return end
+    print("[id: " .. source .. "] Player Loaded Succesfully into mn-cardealer AntiCheat")
+    PlayerSecurity[source] = {}
     PlayerSecurity[source].Recievedkey = false
 end)
+
 
 ESX.RegisterServerCallback("mn-cardealer:recieveSecretKey", function(source, callback) 
     local src =  source 

@@ -8,15 +8,21 @@ intestdrive = false
 SecretKey = nil
 sure = false
 
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(playerData)
+    TriggerServerEvent("mn-cardealer:playerLoaded")
+    Wait(200)
+    ESX.TriggerServerCallback("mn-cardealer:recieveSecretKey", function(key)
+        SecretKey = key
+    end)
+end)
+
 Citizen.CreateThread(function()
     while ESX == nil do 
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
         Wait(0)
     end
     Wait(500)
-    ESX.TriggerServerCallback("mn-cardealer:recieveSecretKey", function(key)
-        SecretKey = key
-    end)
 
     for k,v in pairs(MN.Cardealers) do
         local x,y,z = table.unpack(v.marker)
@@ -37,12 +43,6 @@ self.functions.getDistance = function(coords, pedcoords)
     return GetDistanceBetweenCoords(coords, pedcoords, true)
 end
 
-
-RegisterCommand("testac", function(source, args)
-    ESX.TriggerServerCallback("mn-cardealer:recieveSecretKey", function(key)
-        SecretKey = key
-    end)
-end)
 
 
 
